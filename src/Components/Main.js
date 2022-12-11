@@ -1,26 +1,37 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import PhotoWall from "../Components/PhotoWall";
-import AddPost from "../Components/AddPost";
-import { Route, Switch } from "react-router-dom";
+import PhotoWall from "./PhotoWall";
+import AddPhoto from "./AddPhoto";
+import { Route, Link } from "react-router-dom";
+import Single from "./Single";
 class Main extends Component {
+  constructor() {
+    super();
+  }
   render() {
     return (
       <div>
-        <h1 className="font-face">
-          <Link to="/">Photowall</Link>
+        <h1>
+          <Link to="/"> Photowall </Link>
         </h1>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(params) => <PhotoWall {...this.props} {...params} />}
-          />
-          <Route
-            path="/create"
-            render={(params) => <AddPost {...this.props} {...params} />}
-          />
-        </Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div>
+              <PhotoWall {...this.props} />
+            </div>
+          )}
+        />
+        <Route
+          path="/AddPhoto"
+          render={({ history }) => (
+            <AddPhoto {...this.props} onHistory={history} />
+          )}
+        />
+        <Route
+          path="/single/:id"
+          render={(params) => <Single {...this.props} {...params} />}
+        />
       </div>
     );
   }
