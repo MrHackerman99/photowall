@@ -1,30 +1,34 @@
-import React from "react";
-import PropTyes from "prop-types";
-
-function Photo(props) {
-  const post = props.post;
-  return (
-    <figure className="figure">
-      <img className="photo" src={post.imageLink} alt={post.description} />
-      <figcaption>
-        <p> {post.description} </p>
-      </figcaption>
-      <div className="button-container">
-        <button
-          onClick={() => {
-            props.onRemovePhoto(post);
-          }}
-        >
-          Remove
-        </button>
-      </div>
-    </figure>
-  );
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+class Photo extends Component {
+  render() {
+    console.log(this.props);
+    const { post, i } = this.props;
+    return (
+      <figure className="grid-figure">
+        <div className="grid-photo-wrap">
+          <img
+            src={post.imageLink}
+            alt={post.description}
+            className="grid-photo"
+          />
+        </div>
+        <figcaption>
+          <p>{post.description}</p>
+          <div className="control-buttons">
+            <button
+              className="Remove"
+              onClick={() => {
+                this.props.history.push("/");
+                this.props.removePicture(i);
+              }}
+            >
+              Remove
+            </button>
+          </div>
+        </figcaption>
+      </figure>
+    );
+  }
 }
-
-Photo.propTyes = {
-  post: PropTyes.object.isRequired,
-  onRemovePhoto: PropTyes.func.isRequired,
-};
-
 export default Photo;
